@@ -1,6 +1,7 @@
-<center>
-    <img src="./logo.png" width=100 height=100>
-</center>
+<p align="center">
+        <img src="./logo.png" width=100 height=100 style="border-radius: 10px;">
+
+</p>
 
 # Windows Privilege Escalation Scanner 
 
