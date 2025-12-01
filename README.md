@@ -1,3 +1,7 @@
+<center>
+    <img src="./logo.png" width=100 height=100>
+</center>
+
 # Windows Privilege Escalation Scanner 
 
 ## Advanced Red Team & Pentest Enumeration Tool (C) 
