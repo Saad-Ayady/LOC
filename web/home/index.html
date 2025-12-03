@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOC | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md px-8 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-sky-700">LOC</h1>
+        <div class="space-x-6 text-lg">
+            <a href="#" class="hover:text-sky-700">Home</a>
+            <a href="#about" class="hover:text-sky-700">About</a>
+            <a href="#features" class="hover:text-sky-700">Features</a>
+            <a href="#developers" class="hover:text-sky-700">Developer</a>
+            <a href="#contact" class="hover:text-sky-700">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="relative">
+        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1950&q=80" 
+             class="w-full h-[380px] object-cover opacity-90">
+        <div class="absolute top-1/2 left-12 transform -translate-y-1/2">
+            <h1 class="text-4xl font-bold text-white drop-shadow-lg">
+                High‑Performance Windows Privilege Escalation Scanner
+            </h1>
+            <p class="text-xl text-gray-200 mt-3">
+                Fast, lightweight, and fully‑native — built for real Red Team operations.
+            </p>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="px-12 py-16">
+        <h2 class="text-3xl font-bold text-sky-700 mb-6">About LOC</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <p class="text-lg leading-relaxed">
+                <strong>LOC (Local Offensive Console)</strong> is an advanced Windows 
+                privilege‑escalation scanner written in pure <strong>C</strong>.  
+                It is designed to mimic real APT‑style tradecraft used by groups such as 
+                <strong>APT28, FIN7, and other state‑level operators</strong>.
+                <br><br>
+                LOC performs deep, fast, and stealthy enumeration to uncover:
+                misconfigurations, weak permissions, dangerous token privileges, and 
+                exploitable system settings used in real‑world intrusions.
+                <br><br>
+                Built with performance and stealth in mind, LOC runs in 
+                <strong>less than one second</strong> and leaves a minimal footprint — 
+                making it ideal for Red Teams and post‑exploitation frameworks.
+            </p>
+
+            <img src="https://images.unsplash.com/photo-1551033541-2075d8363c66?auto=format&fit=crop&w=900&q=60"
+                 class="rounded-lg shadow-lg">
+        </div>
+    </section>
+
+    <!-- FEATURES (README MERGED) -->
+    <section id="features" class="bg-white px-12 py-16 shadow-inner">
+        <h2 class="text-3xl font-bold text-sky-700 mb-8">Key Features</h2>
+
+        <div class="space-y-8 text-lg leading-relaxed">
+
+            <!-- Privilege Enumeration -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🔍 Privilege Enumeration</h3>
+                <ul class="list-disc ml-6">
+                    <li>Detects SeImpersonatePrivilege, SeDebugPrivilege, and other high‑value token privileges.</li>
+                    <li>Returns clean Boolean output (1/0) for chained exploitation automation.</li>
+                </ul>
+            </div>
+
+            <!-- File & Directory -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">📂 File & Directory Misconfigurations</h3>
+                <ul class="list-disc ml-6">
+                    <li>Finds Unquoted Service Paths and checks if they are actually exploitable.</li>
+                    <li>Scans for writable directories inside system‑level paths.</li>
+                </ul>
+            </div>
+
+            <!-- Service Misconfig -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🛠️ Service Misconfigurations</h3>
+                <ul class="list-disc ml-6">
+                    <li>Enumerates all Windows services.</li>
+                    <li>Detects weak ACLs & permission abuse vectors.</li>
+                    <li>Extracts binary paths, startup type, and attack surface details.</li>
+                </ul>
+            </div>
+
+            <!-- System & Network -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🪟 System & Network Enumeration</h3>
+                <ul class="list-disc ml-6">
+                    <li>OS version, build number, and architecture.</li>
+                    <li>Logged‑in users and active sessions.</li>
+                    <li>Network interfaces, ARP table, and domain/workgroup info.</li>
+                </ul>
+            </div>
+
+            <!-- Red Team -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">👣 Red Team Oriented</h3>
+                <ul class="list-disc ml-6">
+                    <li>Behaves similarly to APT‑style offensive tools.</li>
+                    <li>No external dependencies — fully static and stealthy.</li>
+                    <li>Perfect for initial foothold enumeration and automated attack chains.</li>
+                </ul>
+            </div>
+
+            <!-- Build Instructions -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">📦 Build Instructions</h3>
+                <p class="font-semibold">🔧 Linux (MinGW):</p>
+                <pre class="bg-gray-200 p-4 rounded-lg mt-2 text-sm">
+x86_64-w64-mingw32-gcc main.c -o system_info.exe -lnetapi32 -liphlpapi -ladvapi32 -lpsapi -luser32
+                </pre>
+
+                <p class="font-semibold mt-4">🔧 Windows (MinGW / Visual Studio):</p>
+                <pre class="bg-gray-200 p-4 rounded-lg mt-2 text-sm">
+gcc main.c -o system_info.exe -l netapi32 -l iphlpapi -l advapi32 -l psapi -l user32
+                </pre>
+            </div>
+
+            <!-- Roadmap -->
+            <div>
+                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🧩 Roadmap</h3>
+                <ul class="list-disc ml-6">
+                    <li>UAC bypass detection</li>
+                    <li>Registry misconfiguration scanning</li>
+                    <li>DLL hijacking & search‑order weaknesses</li>
+                </ul>
+            </div>
+
+            <!-- Disclaimer -->
+            <div>
+                <h3 class="text-2xl font-semibold text-red-600 mb-2">⚠️ Disclaimer</h3>
+                <p>
+                    This tool is intended for educational use, Red Team operations, and authorized penetration testing only.  
+                    The author is not responsible for any misuse or illegal activity.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEVELOPER -->
+    <section id="developers" class="px-12 py-16">
+        <h2 class="text-3xl font-bold text-sky-700 mb-8">Developer</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=60"
+                 class="rounded-xl shadow-lg">
+
+            <div>
+                <p class="text-lg leading-relaxed">
+                    LOC is developed by <strong>Saad</strong>, a systems programmer and security 
+                    researcher specializing in <strong>Windows Internals, low‑level development, and 
+                    offensive security.</strong>
+                    <br><br>
+                    The project focuses on efficiency, accuracy, and real offensive capability:
+                    <em class="italic">“Speed, precision, and results — without noise.”</em>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="px-12 py-16 bg-white">
+        <h2 class="text-3xl font-bold text-sky-700 mb-6">Contact</h2>
+        <p class="text-lg leading-relaxed">
+            Want to contribute, report bugs, or collaborate?  
+            Visit the official GitHub repository below.
+        </p>
+
+        <a href="#" 
+           class="inline-block mt-4 bg-sky-700 text-white px-6 py-3 rounded-lg shadow hover:bg-sky-800">
+            Visit GitHub
+        </a>
+    </section>
+
+</body>
+</html>
