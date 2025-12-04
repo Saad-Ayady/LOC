@@ -1,0 +1,6 @@
+#ifndef SRC_MODELS_USP_GETUSPPAHT_H
+#define SRC_MODELS_USP_GETUSPPAHT_H
+
+runUspPathCheck();
+
+#endif // SRC_MODELS_USP_GETUSPPAHT_H

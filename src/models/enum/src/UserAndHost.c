@@ -1,6 +1,6 @@
 #include "UserAndHost.h"
 #include <stdio.h>
-#include "colorPrint.h"
+#include "../color/colorPrint.h"
 #include <windows.h>
 #include <lm.h>  // NetUserEnum
 

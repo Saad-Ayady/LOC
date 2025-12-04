@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <shlwapi.h>
 #include <psapi.h>  // ADD THIS LINE
-#include "colorPrint.h"
+#include "../color/colorPrint.h"
 #include "installApps.h"
 
 #pragma comment(lib, "shlwapi.lib")
