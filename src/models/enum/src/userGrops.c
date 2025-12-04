@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <lm.h>
 #include "UserAndHost.h"
-#include "../color/colorPrint.h"
+#include "../../color/colorPrint.h"
 #include <stdio.h>
 #pragma comment(lib, "Netapi32.lib")
 

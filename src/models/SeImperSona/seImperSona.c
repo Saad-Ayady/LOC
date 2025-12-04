@@ -46,6 +46,7 @@ BOOL HasPrivilege(LPCSTR privName) {
 
 // ======================== MAIN ========================
 void mainCheckSeImp() {
+    printInfo(L"Checking for high-privilege tokens...\n");
 
     if (HasPrivilege(SE_IMPERSONATE_NAME)) {
         printSuccess(L"SeImpersonatePrivilege FOUND!\n");

@@ -1,5 +1,5 @@
 #include "src/UserAndHost.h"
-#include "src/colorPrint.h"
+#include "../color/colorPrint.h"
 #include "src/userGrops.h"
 #include "src/osInfo.h"
 #include "src/networkInfo.h"
@@ -47,10 +47,5 @@ void genetorMain() {
 
 }
 
-int main() {
-    genetorMain();
-
-    return 0;
-}
 
 // x86_64-w64-mingw32-gcc enum.c src/*.c -o cs.exe  -liphlpapi -lws2_32 -lole32 -loleaut32 -lnetapi32 -lversion -ladvapi32 -DINITGUID

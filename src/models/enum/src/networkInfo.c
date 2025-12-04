@@ -6,7 +6,7 @@
 #include <iphlpapi.h>
 #include <netfw.h>
 #include <stdlib.h>
-#include "../color/colorPrint.h"
+#include "../../color/colorPrint.h"
 #include "networkInfo.h"
 
 #pragma comment(lib, "iphlpapi.lib")

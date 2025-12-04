@@ -160,7 +160,3 @@ void runDllHijackCheck() {
     }
 }
 
-int main() {
-    runDllHijackCheck();
-    return 0;
-}
