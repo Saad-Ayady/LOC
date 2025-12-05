@@ -1,188 +1,526 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOC | Home</title>
+    <title>LOC | 0xdy Cyber Tool</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800;900&family=Share+Tech+Mono&family=VT323&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --neon-red: #ff0033;
+            --neon-cyan: #00ffff;
+            --dark: #0d0d0d;
+        }
+
+        body {
+            background: #000;
+            color: #e0e0e0;
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .vhs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+            background-size: 100% 4px;
+            animation: vhs 8s steps(1) infinite;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        @keyframes vhs {
+            0% {
+                background-position: 0 0
+            }
+
+            100% {
+                background-position: 0 100%
+            }
+        }
+
+        .glitch-title {
+            animation: glitch1 3s infinite;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 4px;
+        }
+
+        @keyframes glitch1 {
+
+            0%,
+            100% {
+                text-shadow: 2px 0 #f00, -2px 0 #0ff;
+            }
+
+            10% {
+                text-shadow: -2px 0 #f00, 2px 0 #0ff;
+            }
+
+            20% {
+                text-shadow: 5px 5px #f00, -5px -5px #0ff;
+            }
+
+            30% {
+                text-shadow: none;
+            }
+        }
+
+        .terminal-box {
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5), inset 0 0 15px rgba(0, 255, 65, 0.1);
+            background: rgba(10, 10, 10, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        .typing {
+            overflow: hidden;
+            border-right: 2px solid var(--neon-green);
+            white-space: nowrap;
+            animation: typing 3.5s steps(40) infinite, blink 0.7s infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0
+            }
+
+            50% {
+                width: 100%
+            }
+
+            100% {
+                width: 100%
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                border-color: var(--neon-green)
+            }
+
+            50% {
+                border-color: transparent
+            }
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .radar {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: radar 8s linear infinite;
+        }
+
+        @keyframes radar {
+            0% {
+                transform: rotate(0deg) scale(0.3);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800">
+<body class="relative min-h-screen">
+    <div class="scanlines"></div>
+    <div class="vhs"></div>
+    <div class="radar top-20 left-10"></div>
+    <div class="radar bottom-20 right-10" style="animation-delay: 2s; width: 200px; height: 200px;"></div>
 
     <!-- NAVBAR -->
-    <nav class="bg-white shadow-md px-8 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-sky-700">LOC</h1>
-        <div class="space-x-6 text-lg">
-            <a href="#" class="hover:text-sky-700">Home</a>
-            <a href="#about" class="hover:text-sky-700">About</a>
-            <a href="#features" class="hover:text-sky-700">Features</a>
-            <a href="#developers" class="hover:text-sky-700">Developer</a>
-            <a href="#contact" class="hover:text-sky-700">Contact</a>
+    <nav
+        class="bg-black border-b-2 border-green-500 px-4 md:px-6 py-4 sticky top-0 z-50 backdrop-blur-md bg-opacity-90">
+        <div class="flex justify-between items-center">
+            <!-- Logo و العنوان معًا على اليسار -->
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <img src="./img/logo.png" alt="LOC Logo" class="w-10 h-10 md:w-12 md:h-12 object-contain">
+                <h1 class="text-xl md:text-3xl glitch-title">
+                    <span class="text-red-500">LOC</span><span class="text-green-400">_TOOL</span>
+                </h1>
+            </div>
+
+            <!-- القائمة العادية (للشاشات الكبيرة) -->
+            <div class="hidden md:flex items-center space-x-6 text-lg">
+                <a href="#home" class="nav-link text-green-400 hover:text-white transition-colors duration-300">Home</a>
+                <a href="#about"
+                    class="nav-link text-green-400 hover:text-white transition-colors duration-300">About</a>
+                <a href="#features"
+                    class="nav-link text-green-400 hover:text-white transition-colors duration-300">Features</a>
+                <a href="#contact"
+                    class="nav-link text-green-400 hover:text-white transition-colors duration-300">Contact</a>
+            </div>
+
+            <!-- زر الهمبرغر (للجوال فقط) -->
+            <button id="menu-toggle" class="md:hidden text-green-400 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- القائمة المنسدلة للجوال -->
+        <div id="mobile-menu" class="md:hidden hidden mt-4 space-y-4">
+            <a href="#home"
+                class="block nav-link text-green-400 hover:text-white transition-colors duration-300 py-2">Home</a>
+            <a href="#about"
+                class="block nav-link text-green-400 hover:text-white transition-colors duration-300 py-2">About</a>
+            <a href="#features"
+                class="block nav-link text-green-400 hover:text-white transition-colors duration-300 py-2">Features</a>
+            <a href="#contact"
+                class="block nav-link text-green-400 hover:text-white transition-colors duration-300 py-2">Contact</a>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="relative">
-        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=1950&q=80" 
-             class="w-full h-[380px] object-cover opacity-90">
-        <div class="absolute top-1/2 left-12 transform -translate-y-1/2">
-            <h1 class="text-4xl font-bold text-white drop-shadow-lg">
-                High‑Performance Windows Privilege Escalation Scanner
-            </h1>
-            <p class="text-xl text-gray-200 mt-3">
-                Fast, lightweight, and fully‑native — built for real Red Team operations.
-            </p>
-        </div>
-    </section>
+    <script>
+        // JavaScript لتفعيل قائمة الجوال
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
 
-    <!-- ABOUT -->
-    <section id="about" class="px-12 py-16">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">About LOC</h2>
+            // تغيير أيقونة الهمبرغر
+            const icon = this.querySelector('svg');
+            if (menu.classList.contains('hidden')) {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            } else {
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            }
+        });
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <p class="text-lg leading-relaxed">
-                <strong>LOC (Local Offensive Console)</strong> is an advanced Windows 
-                privilege‑escalation scanner written in pure <strong>C</strong>.  
-                It is designed to mimic real APT‑style tradecraft used by groups such as 
-                <strong>APT28, FIN7, and other state‑level operators</strong>.
-                <br><br>
-                LOC performs deep, fast, and stealthy enumeration to uncover:
-                misconfigurations, weak permissions, dangerous token privileges, and 
-                exploitable system settings used in real‑world intrusions.
-                <br><br>
-                Built with performance and stealth in mind, LOC runs in 
-                <strong>less than one second</strong> and leaves a minimal footprint — 
-                making it ideal for Red Teams and post‑exploitation frameworks.
-            </p>
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+                document.querySelector('#menu-toggle svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            });
+        });
+    </script>
 
-            <img src="https://images.unsplash.com/photo-1551033541-2075d8363c66?auto=format&fit=crop&w=900&q=60"
-                 class="rounded-lg shadow-lg">
-        </div>
-    </section>
-
-    <!-- FEATURES (README MERGED) -->
-    <section id="features" class="bg-white px-12 py-16 shadow-inner">
-        <h2 class="text-3xl font-bold text-sky-700 mb-8">Key Features</h2>
-
-        <div class="space-y-8 text-lg leading-relaxed">
-
-            <!-- Privilege Enumeration -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🔍 Privilege Enumeration</h3>
-                <ul class="list-disc ml-6">
-                    <li>Detects SeImpersonatePrivilege, SeDebugPrivilege, and other high‑value token privileges.</li>
-                    <li>Returns clean Boolean output (1/0) for chained exploitation automation.</li>
-                </ul>
-            </div>
-
-            <!-- File & Directory -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">📂 File & Directory Misconfigurations</h3>
-                <ul class="list-disc ml-6">
-                    <li>Finds Unquoted Service Paths and checks if they are actually exploitable.</li>
-                    <li>Scans for writable directories inside system‑level paths.</li>
-                </ul>
-            </div>
-
-            <!-- Service Misconfig -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🛠️ Service Misconfigurations</h3>
-                <ul class="list-disc ml-6">
-                    <li>Enumerates all Windows services.</li>
-                    <li>Detects weak ACLs & permission abuse vectors.</li>
-                    <li>Extracts binary paths, startup type, and attack surface details.</li>
-                </ul>
-            </div>
-
-            <!-- System & Network -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🪟 System & Network Enumeration</h3>
-                <ul class="list-disc ml-6">
-                    <li>OS version, build number, and architecture.</li>
-                    <li>Logged‑in users and active sessions.</li>
-                    <li>Network interfaces, ARP table, and domain/workgroup info.</li>
-                </ul>
-            </div>
-
-            <!-- Red Team -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">👣 Red Team Oriented</h3>
-                <ul class="list-disc ml-6">
-                    <li>Behaves similarly to APT‑style offensive tools.</li>
-                    <li>No external dependencies — fully static and stealthy.</li>
-                    <li>Perfect for initial foothold enumeration and automated attack chains.</li>
-                </ul>
-            </div>
-
-            <!-- Build Instructions -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">📦 Build Instructions</h3>
-                <p class="font-semibold">🔧 Linux (MinGW):</p>
-                <pre class="bg-gray-200 p-4 rounded-lg mt-2 text-sm">
-x86_64-w64-mingw32-gcc main.c -o system_info.exe -lnetapi32 -liphlpapi -ladvapi32 -lpsapi -luser32
+    <!-- HOME SECTION -->
+    <section id="home" class="min-h-screen flex items-center justify-center p-6">
+        <div class="terminal-box p-10 max-w-4xl w-full mx-4">
+            <div class="text-center mb-10">
+                <pre class="text-green-400 text-2xl md:text-3xl mb-6 font-mono">
+ __        ______     ______ 
+|  |      /  __  \   /      |
+|  |     |  |  |  | |  ,----'
+|  |     |  |  |  | |  |     
+|  `----.|  `--'  | |  `----.
+|_______| \______/   \______|
+                             
                 </pre>
-
-                <p class="font-semibold mt-4">🔧 Windows (MinGW / Visual Studio):</p>
-                <pre class="bg-gray-200 p-4 rounded-lg mt-2 text-sm">
-gcc main.c -o system_info.exe -l netapi32 -l iphlpapi -l advapi32 -l psapi -l user32
-                </pre>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 neon-text text-green-400">
+                    Windows Privilege Analysis Tool
+                </h2>
+                <div class="text-xl md:text-2xl text-cyan-400 mb-8">
+                    <span class="typing">Speed. Silence. Precision.</span>
+                </div>
             </div>
 
-            <!-- Roadmap -->
-            <div>
-                <h3 class="text-2xl font-semibold text-sky-700 mb-2">🧩 Roadmap</h3>
-                <ul class="list-disc ml-6">
-                    <li>UAC bypass detection</li>
-                    <li>Registry misconfiguration scanning</li>
-                    <li>DLL hijacking & search‑order weaknesses</li>
-                </ul>
-            </div>
-
-            <!-- Disclaimer -->
-            <div>
-                <h3 class="text-2xl font-semibold text-red-600 mb-2">⚠️ Disclaimer</h3>
-                <p>
-                    This tool is intended for educational use, Red Team operations, and authorized penetration testing only.  
-                    The author is not responsible for any misuse or illegal activity.
+            <div class="space-y-6 text-lg">
+                <p class="text-gray-300">
+                    <span class="text-green-400 font-bold">LOC</span> introduces a new mindset in the field of security.
+                    It performs exceptionally well
+                    in Windows privilege analysis, offering incredible speed and seamless access to critical
+                    information that helps you build your assessment strategy.
                 </p>
+                <p class="text-gray-300">
+                    The tool focuses on identifying high–impact security issues and provides capabilities
+                    that can greatly support advanced security operations and threat analysis.
+                </p>
+                <div class="pt-6 border-t border-green-900">
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <span class="px-4 py-2 bg-green-900 bg-opacity-30 border border-green-700 rounded">Fast
+                            Enumeration</span>
+                        <span class="px-4 py-2 bg-green-900 bg-opacity-30 border border-green-700 rounded">Low Detection
+                            Rate</span>
+                        <span
+                            class="px-4 py-2 bg-green-900 bg-opacity-30 border border-green-700 rounded">Post-Exploitation</span>
+                        <span class="px-4 py-2 bg-green-900 bg-opacity-30 border border-green-700 rounded">Windows
+                            Focus</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- DEVELOPER -->
-    <section id="developers" class="px-12 py-16">
-        <h2 class="text-3xl font-bold text-sky-700 mb-8">Developer</h2>
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="terminal-box p-10">
+                <h2 class="text-4xl font-bold mb-10 text-center neon-text text-red-500">
+                    About <span class="text-green-400">LOC</span> & <span class="text-cyan-400">0xdy</span>
+                </h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=60"
-                 class="rounded-xl shadow-lg">
+                <div class="grid md:grid-cols-2 gap-10 items-center mb-10">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=80"
+                            alt="Cyber Security" class="w-full h-auto rounded border-2 border-green-700">
+                    </div>
+                    <div class="space-y-6">
+                        <p class="text-gray-300">
+                            Hello! Since you're reading this paragraph, you're probably interested in LOC.
+                            So let me give you a brief introduction to <strong class="text-green-400">0xdy</strong>, the
+                            developer of LOC-TOOL.
+                        </p>
+                        <p class="text-gray-300">
+                            My name is <strong class="text-green-400">Saad</strong>, and I'm a professional penetration
+                            tester.
+                            I'm passionate about developing my own tools, especially since I'm proficient
+                            in several programming languages.
+                        </p>
+                    </div>
+                </div>
 
-            <div>
-                <p class="text-lg leading-relaxed">
-                    LOC is developed by <strong>Saad</strong>, a systems programmer and security 
-                    researcher specializing in <strong>Windows Internals, low‑level development, and 
-                    offensive security.</strong>
-                    <br><br>
-                    The project focuses on efficiency, accuracy, and real offensive capability:
-                    <em class="italic">“Speed, precision, and results — without noise.”</em>
-                </p>
+                <div class="space-y-6 text-gray-300">
+                    <p>
+                        I also have experience building back-end web applications, but always with a security-first
+                        mindset.
+                        This means I focus on protecting code from vulnerabilities that could compromise a website or
+                        server,
+                        or cause it to behave in unexpected ways.
+                    </p>
+                    <p>
+                        As for the LOC tool, while performing a penetration test on a Windows environment,
+                        I used an automated scanning tool as usual. However, it was slow, noisy, quickly detected by
+                        antivirus,
+                        and returned a lot of unnecessary information. This was frustrating, so I thought:
+                        <em class="text-cyan-400">why not build my own tool—simple, fast, and with a lower chance of
+                            detection?</em>
+                        That's where LOC was born.
+                    </p>
+                    <p>
+                        Over time, I continued expanding it and adding powerful features, especially thanks to my deep
+                        understanding of Windows privilege mechanisms. My goal is for LOC to become an essential utility
+                        in the post-exploitation phase.
+                    </p>
+                    <p class="text-green-400 font-bold pulse">
+                        From all these ideas, the development of LOC continues—and I hope you enjoy using it.
+                    </p>
+                </div>
+
+                <div class="mt-10 pt-8 border-t border-green-900 text-center">
+                    <a href="https://saad-ayady.github.io/myWEBSITE/" target="_blank"
+                        class="inline-flex items-center gap-2 px-6 py-3 bg-green-900 bg-opacity-50 border border-green-500 rounded text-green-300 hover:bg-green-800 hover:text-white transition-all duration-300">
+                        <span class="text-xl">🌐</span>
+                        <span class="text-lg">Visit My Website</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="px-12 py-16 bg-white">
-        <h2 class="text-3xl font-bold text-sky-700 mb-6">Contact</h2>
-        <p class="text-lg leading-relaxed">
-            Want to contribute, report bugs, or collaborate?  
-            Visit the official GitHub repository below.
-        </p>
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-20 px-6 bg-black bg-opacity-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-14 text-center neon-text text-cyan-400">
+                Core Features
+            </h2>
 
-        <a href="#" 
-           class="inline-block mt-4 bg-sky-700 text-white px-6 py-3 rounded-lg shadow hover:bg-sky-800">
-            Visit GitHub
-        </a>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="terminal-box p-8">
+                    <div class="text-4xl mb-4 text-green-400">⚡</div>
+                    <h3 class="text-2xl font-bold mb-4 text-green-400">High Speed</h3>
+                    <p class="text-gray-300">
+                        Optimized for performance with minimal overhead. Get results faster than traditional tools.
+                    </p>
+                </div>
+
+                <div class="terminal-box p-8">
+                    <div class="text-4xl mb-4 text-red-400">🛡️</div>
+                    <h3 class="text-2xl font-bold mb-4 text-red-400">Low Detection</h3>
+                    <p class="text-gray-300">
+                        Designed to avoid AV/EDR detection through smart techniques and clean code patterns.
+                    </p>
+                </div>
+
+                <div class="terminal-box p-8">
+                    <div class="text-4xl mb-4 text-cyan-400">🎯</div>
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">Precision Focus</h3>
+                    <p class="text-gray-300">
+                        Targets only critical information. No noise, just actionable intelligence for your assessments.
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto terminal-box p-10">
+            <h2 class="text-4xl font-bold mb-10 text-center neon-text text-green-400">
+                Contact & Resources
+            </h2>
+
+            <div class="text-center space-y-8">
+                <p class="text-xl text-gray-300">
+                    For more information about LOC tool development, security research, or collaboration:
+                </p>
+
+                <div class="flex flex-col items-center gap-6">
+                    <a href="https://saad-ayady.github.io/myWEBSITE/" target="_blank"
+                        class="text-2xl text-cyan-400 hover:text-white transition-colors duration-300">
+                        🔗 saad-ayady.github.io
+                    </a>
+
+                    <div class="text-lg text-gray-400">
+                        <p>Pentester | Tool Developer | Security Researcher</p>
+                        <p class="mt-2">Specializing in Windows security and post-exploitation</p>
+                    </div>
+                </div>
+
+                <div class="pt-10 border-t border-green-900">
+                    <p class="text-sm text-gray-500">
+                        LOC Tool - For authorized security testing and educational purposes only.
+                    </p>
+                    <p class="text-sm text-gray-500 mt-2">
+                        Always obtain proper authorization before testing any system.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 border-t border-green-900 text-center text-gray-500">
+        <div class="max-w-6xl mx-auto">
+            <p class="mb-4">© 2026 LOC Tool by 0xdy. All rights reserved.</p>
+            <p class="text-sm">Built with precision for security professionals.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Console effect for cyber vibe
+        const consoleMessages = [
+            "[LOC] Initializing security scan...",
+            "[LOC] Checking system privileges...",
+            "[LOC] Enumerating domain information...",
+            "[LOC] Tool ready for operation."
+        ];
+
+        let messageIndex = 0;
+        setInterval(() => {
+            if (messageIndex < consoleMessages.length) {
+                console.log(`%c${consoleMessages[messageIndex]}`, 'color: #00ff41; font-family: monospace;');
+                messageIndex++;
+            }
+        }, 1500);
+
+        // Add hover effect to terminal boxes
+        document.querySelectorAll('.terminal-box').forEach(box => {
+            box.addEventListener('mouseenter', () => {
+                box.style.boxShadow = '0 0 30px rgba(0,255,65,0.7), inset 0 0 20px rgba(0,255,65,0.2)';
+            });
+            box.addEventListener('mouseleave', () => {
+                box.style.boxShadow = '0 0 20px rgba(0,255,65,0.5), inset 0 0 15px rgba(0,255,65,0.1)';
+            });
+        });
+    </script>
 </body>
+
 </html>
