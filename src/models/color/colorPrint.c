@@ -23,11 +23,11 @@ void printColor(const wchar_t* color, const wchar_t* message) {
     wprintf(L"%ls%ls\033[0m", color, message);
 }
 
-void printRed(const wchar_t* message)    { printColor(L"\033[1;31m", message); }
-void printGreen(const wchar_t* message)  { printColor(L"\033[1;32m", message); }
-void printBlue(const wchar_t* message)   { printColor(L"\033[1;34m", message); }
-void printYellow(const wchar_t* message) { printColor(L"\033[1;33m", message); }
-void printBold(const wchar_t* message)   { printColor(L"\033[1m",    message); }
+void printRed(const wchar_t* message)    { printColor(L"\033[1;31m\n", message); }
+void printGreen(const wchar_t* message)  { printColor(L"\033[1;32m\n", message); }
+void printBlue(const wchar_t* message)   { printColor(L"\033[1;34m\n", message); }
+void printYellow(const wchar_t* message) { printColor(L"\033[1;33m\n", message); }
+void printBold(const wchar_t* message)   { printColor(L"\033[1m\n",    message); }
 
 void printInfo(const wchar_t* message) {
     printBlue(L"[INFO] ");

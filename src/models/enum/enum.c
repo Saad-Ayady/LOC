@@ -11,9 +11,7 @@
 
 void genetorMain() {
     enableANSI();
-    // pint panel
-    printPanel();
-    Sleep(2000);
+    
 
 
     printYellow(L"\n=== User and Host Information ===\n");

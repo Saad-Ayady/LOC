@@ -1,38 +1,61 @@
-#include "src/models/enum/enum.h" // 1
-#include "src/models/color/colorPrint.h"
-#include "src/models/SeImperSona/seImperSona.h" // 2
-#include "src/models/usp/getUspPaht.h" // 3
-#include "src/models/dllHajacing/dllCheck.h" // 4
-#include "src/models/serviceMisconfiguration/serMis.h" // 5
 #include <stdio.h>
+#include "args.h"
+#include "src/models/enum/enum.h"
+#include "src/models/color/colorPrint.h"
+#include "src/models/SeImperSona/seImperSona.h"
+#include "src/models/usp/getUspPaht.h"
+#include "src/models/dllHajacing/dllCheck.h"
+#include "src/models/serviceMisconfiguration/serMis.h"
+#include "src/models/privescCveCheck/fullScanCVE.h"
 
-int main() {
-    // enumaration
-    genetorMain();
-    // se impersonate privilege check
-    printf("\n");
-    printYellow(L"\n======== SeImpersonatePrivilege Check =========\n");
-    mainCheckSeImp();
-    printYellow(L"\n==============================================\n");
-    // unquoted service path check
-    printf("\n");
-    printYellow(L"\n======== Unquoted Service Path Check =========\n");
-    runUspPathCheck();
-    printYellow(L"\n==============================================\n");
-    // dll hijack check
-    printf("\n");
-    printYellow(L"\n======== DLL Hijack Service Check =========\n");
-    runDllHijackCheck();
-    printYellow(L"\n==============================================\n");
-    // service misconfiguration check
-    printf("\n");
-    printYellow(L"\n======== Service Misconfiguration Check =========\n");
-    ScanServiceMisconfigs();
-    PrintServiceReport();
-    printYellow(L"\n==============================================\n");
+int main(int argc, char *argv[]) {
+
+    AppOptions opt;
+    parseArgs(argc, argv, &opt);
+
+    enableANSI();
+    printPanel();
+    Sleep(2000);
+
+    if (opt.runEnum) {
+        printYellow(L"\n======== Enumeration =========\n");
+        genetorMain();
+        printYellow(L"\n======================================\n");
+    }
+
+    if (opt.runSeImpersonate) {
+        printYellow(L"\n======== SeImpersonate Check =========\n");
+        mainCheckSeImp();
+        printYellow(L"\n======================================\n");
+    }
+
+    if (opt.runUSP) {
+        printYellow(L"\n======== Unquoted Service Path =========\n");
+        runUspPathCheck();
+        printYellow(L"\n======================================\n");
+
+    }
+
+    if (opt.runDllHijack) {
+        printYellow(L"\n======== DLL Hijack Check =========\n");
+        runDllHijackCheck();
+        printYellow(L"\n======================================\n");
+    }
+
+    if (opt.runServiceMisconfig) {
+        printYellow(L"\n======== Service Misconfiguration =========\n");
+        ScanServiceMisconfigs();
+        PrintServiceReport();
+        printYellow(L"\n======================================\n");
+    }
+
+    printYellow(L"\n======== Privilege Escalation CVE Scan =========\n");
+    fullScanCVE();
+    printYellow(L"\n======================================\n");
+
     return 0;
-
 }
+
 
 /*
 RUN COMMAND:
