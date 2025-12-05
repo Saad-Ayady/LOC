@@ -38,28 +38,31 @@
 ## 📦 Build Instructions 
 ### 🔧 Linux (MinGW) 
 ```bash 
-x86_64-w64-mingw32-gcc main.c -o system_info.exe -lnetapi32 -liphlpapi -ladvapi32 -lpsapi -luser32
+bash install.sh
+
+make
 ```
 
 ### 🔧 Windows (MinGW / Visual Studio)
 ```powershell 
-gcc main.c -o system_info.exe -l netapi32 -l iphlpapi -l advapi32 -l psapi -l user32
+make
 ```
 
 ## 📄 Output Example:
 
 ```mathematica 
 === Unquoted Service Path Analysis ===
-[!] Exploitable: C:\Program Files\Example Service\service.exe
-[-] Not Exploitable: C:\Service\safe.exe
-[+] Total exploitable unquoted service paths: 1
-```
+======== Unquoted Service Path =========
+[INFO] rsDNSClientSvc
+              service name : rsDNSClientSvc
+              writable path : Yes
+              service path : C:\Program Files\ReasonLabs\DNS\rsDNSClientSvc.exe
 
-```pgsql
-=== Token Privileges ===
-[!] SeImpersonatePrivilege → ENABLED (OK to exploit)
-[ ] SeDebugPrivilege → DISABLED
+======== Privilege Escalation CVE Scan =========
 
+[VULNERABLE] System is affected by CVE-2024-21338
+Exploit : https://www.exploit-db.com/exploits/52275
+------------------------------------------
 ```
 ## ⚠️ Disclaimer :
 - This tool is for educational, red teaming, and authorized penetration testing only.
