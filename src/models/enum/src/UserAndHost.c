@@ -39,9 +39,6 @@ void getHost() {
     }
 }
 
-// -----------------------------------------------------
-// 🔵 FUNCTION: getAllUsers()
-// -----------------------------------------------------
 void getAllUsers() {
     LPUSER_INFO_0 pBuf = NULL;
     LPUSER_INFO_0 pTmpBuf;
